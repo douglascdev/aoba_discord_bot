@@ -10,17 +10,13 @@ class Osu(commands.Cog, name="Osu"):
     API_BASE_URL = "https://osu.ppy.sh/api/v2/"
     API_OAUTH_URL = "https://osu.ppy.sh/oauth/token"
 
-    def __init__(self):
+    def __init__(self, client_id: int, client_secret: str):
         """
-        The osu! API requires the client id and a secret to request a token. Create a credentials.txt file in the same
-        folder as this file and paste the id in the first line and the secret in the second. Access your account
-        settings(https://osu.ppy.sh/home/account/edit#oauth) to get the id and secret.
+        The osu! API requires the client id and a secret to request a token, both of which should be passed as arguments
+        running the bot to use the osu! cog. Access your osu account settings at
+        https://osu.ppy.sh/home/account/edit#oauth to get the id and secret.
         """
-        with open(
-            "C:\\Users\\Douglas\\PycharmProjects\\aoba_discord_bot\\aoba_discord_bot\\cogs\\osu\\credentials.txt",
-            "r",
-        ) as credentials_file:
-            self.client_id, self.client_secret = credentials_file.read().splitlines()
+        self.client_id, self.client_secret = client_id, client_secret
         self._access_token_info = None
         self._token_expires_dt = None
 
@@ -67,4 +63,7 @@ class Osu(commands.Cog, name="Osu"):
             url=url, data=body, headers=self._get_authorization_header()
         ).json()
         pp = response.get("score").get("pp")
-        await ctx.send(content=f"Player has a {round(pp)}pp score on this map!")
+        username = response.get("score").get("user").get("username")
+        await ctx.send(
+            content=f"** {username} ** has a **{round(pp)}pp** score on this map!"
+        )

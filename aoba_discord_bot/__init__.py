@@ -7,5 +7,5 @@ __version__ = "0.1.0"
 from .bot import *
 from .aoba_checks import *
 from .cli import *
-from .mapped_classes import *
+from .db_models import *
 from .cogs.osu import *
