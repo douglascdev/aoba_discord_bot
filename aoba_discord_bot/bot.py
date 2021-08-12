@@ -4,6 +4,7 @@ from discord.ext.commands import Bot, Context, check, Command
 from sqlalchemy.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.orm import Session
 
+from aoba_discord_bot.cogs.osu import Osu
 from aoba_discord_bot.mapped_classes import AobaGuild, AobaCommand
 from aoba_discord_bot import aoba_checks
 
@@ -26,6 +27,7 @@ class AobaDiscordBot(Bot):
     def __init__(self, db_session: Session, **options):
         super().__init__(**options)
         self.db_session = db_session
+        self.add_cog(Osu())
 
         @self.command(
             name="guilds", aliases=["servers"], help="List of servers running Aoba"

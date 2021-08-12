@@ -6,7 +6,7 @@ import pytest
 
 from click.testing import CliRunner
 
-from aoba_discord_bot import aoba_discord_bot
+from aoba_discord_bot import bot
 from aoba_discord_bot import cli
 
 
