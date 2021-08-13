@@ -53,7 +53,7 @@ class Osu(commands.Cog, name="Osu"):
         return requests.post(url=Osu.API_OAUTH_URL, data=body).json()
 
     @commands.command()
-    async def get_score_pp(self, ctx: Context, beatmap_id: int, user_id: int):
+    async def score_pp(self, ctx: Context, beatmap_id: int, user_id: int):
         url = f"{self.API_BASE_URL}beatmaps/{beatmap_id}/scores/users/{user_id}"
         body = {
             "mode": "std",
