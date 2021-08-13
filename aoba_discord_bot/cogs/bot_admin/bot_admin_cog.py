@@ -4,7 +4,10 @@ from discord.ext.commands import Context, Bot
 from sqlalchemy.orm import Session
 
 
-class BotAdmin(commands.Cog, name="BotAdmin", ):
+class BotAdmin(
+    commands.Cog,
+    name="BotAdmin",
+):
     def __init__(self, bot: Bot, db_session: Session):
         self.bot = bot
         self.db_session = db_session

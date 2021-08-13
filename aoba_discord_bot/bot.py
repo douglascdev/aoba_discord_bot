@@ -46,13 +46,12 @@ class AobaDiscordBot(Bot):
                     print(f"{len(new_guilds)} guilds added the bot since the last run")
 
             async def add_persisted_custom_commands():
-
                 async def custom_command(ctx: Context):
                     try:
                         custom_cmd = (
                             self.db_session.query(AobaCommand)
-                                .filter(AobaCommand.name == ctx.command.name)
-                                .one()
+                            .filter(AobaCommand.name == ctx.command.name)
+                            .one()
                         )
                         await ctx.channel.send(custom_cmd.text)
                     except (NoResultFound, MultipleResultsFound) as e:

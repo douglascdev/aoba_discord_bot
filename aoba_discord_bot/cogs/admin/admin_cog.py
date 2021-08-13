@@ -17,7 +17,7 @@ class Admin(commands.Cog, name="Admin"):
     @commands.group(help="Manage custom commands", pass_context=True)
     async def custom_cmd(self, ctx: Context):
         if ctx.invoked_subcommand is None:
-            await ctx.send('Invalid custom command passed.')
+            await ctx.send("Invalid custom command passed.")
 
     @commands.check(author_is_admin)
     @custom_cmd.command(
@@ -28,8 +28,8 @@ class Admin(commands.Cog, name="Admin"):
         try:
             guild_db_record = (
                 self.db_session.query(AobaGuild)
-                    .filter(AobaGuild.guild_id == ctx.guild.id)
-                    .one()
+                .filter(AobaGuild.guild_id == ctx.guild.id)
+                .one()
             )
             new_cmd = AobaCommand(name=name, text=text, guild=guild_db_record)
             self.db_session.merge(new_cmd)
@@ -39,8 +39,8 @@ class Admin(commands.Cog, name="Admin"):
                 try:
                     custom_cmd = (
                         self.db_session.query(AobaCommand)
-                            .filter(AobaCommand.name == ctx.command.name)
-                            .one()
+                        .filter(AobaCommand.name == ctx.command.name)
+                        .one()
                     )
                     await ctx.channel.send(custom_cmd.text)
                 except (NoResultFound, MultipleResultsFound) as e:
@@ -58,16 +58,14 @@ class Admin(commands.Cog, name="Admin"):
             print(e)
 
     @commands.check(author_is_admin)
-    @custom_cmd.command(
-        name="del", help="Delete a custom command"
-    )
+    @custom_cmd.command(name="del", help="Delete a custom command")
     async def del_command(self, ctx: Context, name: str):
         try:
             cmd_record = (
                 self.db_session.query(AobaCommand)
-                    .filter(AobaCommand.guild_id == ctx.guild.id)
-                    .filter(AobaCommand.name == name)
-                    .one()
+                .filter(AobaCommand.guild_id == ctx.guild.id)
+                .filter(AobaCommand.name == name)
+                .one()
             )
             self.db_session.delete(cmd_record)
             self.db_session.commit()
@@ -85,8 +83,8 @@ class Admin(commands.Cog, name="Admin"):
         try:
             guild_db_record = (
                 self.db_session.query(AobaGuild)
-                    .filter(AobaGuild.guild_id == ctx.guild.id)
-                    .one()
+                .filter(AobaGuild.guild_id == ctx.guild.id)
+                .one()
             )
             guild_db_record.command_prefix = new_prefix
             self.db_session.merge(guild_db_record)
@@ -99,6 +97,8 @@ class Admin(commands.Cog, name="Admin"):
             print(e)
 
     @commands.check(author_is_admin)
-    @commands.command(help="Deletes 100 or a specified number of messages from this channel")
+    @commands.command(
+        help="Deletes 100 or a specified number of messages from this channel"
+    )
     async def purge(self, ctx: Context, limit: int = 100):
         await ctx.channel.purge(limit=limit)
