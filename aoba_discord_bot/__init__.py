@@ -8,4 +8,5 @@ from .bot import *
 from .aoba_checks import *
 from .cli import *
 from .db_models import *
-from .cogs.osu import *
+from .formatting import *
+from .cogs import *
