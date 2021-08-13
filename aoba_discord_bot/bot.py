@@ -5,6 +5,7 @@ from sqlalchemy.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.orm import Session
 
 from aoba_discord_bot.cogs.osu import Osu
+from aoba_discord_bot.cogs.formatting import Formatting
 from aoba_discord_bot.db_models import AobaGuild, AobaCommand
 from aoba_discord_bot import aoba_checks
 
@@ -33,6 +34,7 @@ class AobaDiscordBot(Bot):
                 client_secret=aoba_params.get("osu_client_secret"),
             )
         )
+        self.add_cog(Formatting())
 
         @self.command(
             name="guilds", aliases=["servers"], help="List of servers running Aoba"
@@ -112,6 +114,22 @@ class AobaDiscordBot(Bot):
             await ctx.channel.send("Shutting down, bye admin!")
             await self.change_presence(status=discord.Status.offline)
             await self.close()
+
+        @check(aoba_checks.author_is_admin)
+        @check(aoba_checks.author_is_not_bot)
+        @self.command(help="Deletes 100 or a specified number of messages from this channel")
+        async def purge(ctx: Context, limit: int = 100):
+            await ctx.channel.purge(limit=limit)
+
+        @check(aoba_checks.author_is_not_bot)
+        @self.command(aliases=["em"], help="Escapes all Markdown in the message")
+        async def escape_markdown(ctx: Context, *messages: str):
+            chars_to_escape = "*", "_", "`", ">"
+            escaped_messages = list()
+            for message in messages:
+                escaped_messages.append("".join(f"\\{ch}" if ch in chars_to_escape else ch for ch in message))
+            author_mention, escaped_message = f"<@{ctx.author.id}>", " ".join(escaped_messages)
+            await ctx.send(f"{author_mention}:\n{escaped_message}")
 
         @self.check
         async def globally_block_dms(ctx: Context):
