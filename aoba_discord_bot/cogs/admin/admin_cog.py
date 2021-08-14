@@ -1,3 +1,4 @@
+from discord import User
 from discord.ext import commands
 from discord.ext.commands import Context, Bot
 from sqlalchemy.exc import NoResultFound, MultipleResultsFound
@@ -94,6 +95,27 @@ class Admin(commands.Cog, name="Admin"):
                 "Error trying to get guild id record, check the logs for more information"
             )
             print(e)
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Kick a member from this server"
+    )
+    async def kick(self, ctx: Context, user: User):
+        await ctx.guild.kick(user)
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Ban a member from this server"
+    )
+    async def ban(self, ctx: Context, user: User):
+        await ctx.guild.ban(user)
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Unban a member from this server"
+    )
+    async def ban(self, ctx: Context, user: User):
+        await ctx.guild.ban(user)
 
     @commands.check(author_is_admin)
     @commands.command(
