@@ -34,7 +34,7 @@ with open("README.rst") as readme_file:
     .. image:: https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.png
     :align: center
     """
-    readme.replace(gif_html_code, gif_rst_code)
+    readme.replace(png_html_code, png_rst_code)
 
 with open("HISTORY.rst") as history_file:
     history = history_file.read()
