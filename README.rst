@@ -4,7 +4,9 @@ Aoba Discord Bot
 .. raw:: html
 
     <embed>
-        <img style="display: block; margin-left: auto; margin-right: auto;" src="aoba.png" alt="Aoba"/>
+        <p align="center">
+            <img src="aoba.png" alt="Aoba"/>
+        </p>
     </embed>
 
 .. image:: https://img.shields.io/pypi/v/aoba_discord_bot.svg
@@ -26,7 +28,9 @@ Aoba Discord Bot
 .. raw:: html
 
     <embed>
-        <img style="display: block; margin-left: auto; margin-right: auto; width: 400px" src="aoba.gif" alt="Aoba"/>
+        <p align="center">
+            <img src="aoba.gif" alt="Aoba"/>
+        </p>
     </embed>
 |
 
