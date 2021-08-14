@@ -19,10 +19,8 @@ script: tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: douglas-cpp
-  password:
-    secure: PLEASE_REPLACE_ME
+  user: "__token__"
   on:
     tags: true
     repo: douglascdev/aoba_discord_bot
-    python: 3.8
+    python: 3.9
