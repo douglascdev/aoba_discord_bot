@@ -40,8 +40,8 @@ Aoba, the cutest Python Discord bot in all of GitHub! Click `here <https://disco
 * Free software: MIT license
 * Documentation: https://aoba-discord-bot.readthedocs.io.
 
-Please be aware that until version 1.0.0 is released the bot should not be considered reliable. It's still very early in
-development and will have bugs that can cause problems to your server.
+Please be aware that until version 1.0.0 is released the bot should not be considered stable.
+It's still very early in development and could have bugs that would cause problems to your server.
 
 
 Features
