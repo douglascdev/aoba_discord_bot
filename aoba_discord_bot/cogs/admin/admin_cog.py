@@ -11,7 +11,6 @@ class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot: Bot, db_session: Session):
         self.bot = bot
         self.db_session = db_session
-        self.bot_check(author_is_admin)
 
     @commands.check(author_is_admin)
     @commands.group(help="Manage custom commands", pass_context=True)
