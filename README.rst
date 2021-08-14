@@ -57,18 +57,21 @@ Here's the full list of commands:
 .. code-block::
 
     Admin:
+     !ban             Unban a member from this server
      !custom_cmd      Manage custom commands
+     !kick            Kick a member from this server
      !prefix          Set the default command prefix
      !purge           Deletes 100 or a specified number of messages from this channel
 
     BotAdmin:
-     !announce        Make an announcement in every server
+     !announce        (UNTESTED)Make an announcement in every server
      !guilds          List of servers running Aoba
      !shutdown        Shutdown the bot
      !status          Change Aoba's status text
 
     Osu:
-     !score_pp
+     !beatmaps_backup Generates a backup with download links to your beatmaps by reading an attachment with your osu!.db file
+     !score_pp        Performance points obtained by the user in this map
 
     User:
      !escape_markdown Escapes all Markdown in the message

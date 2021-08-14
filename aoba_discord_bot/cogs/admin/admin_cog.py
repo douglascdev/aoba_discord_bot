@@ -108,8 +108,8 @@ class Admin(commands.Cog, name="Admin"):
 
     @commands.check(author_is_admin)
     @commands.command(help="Unban a member from this server")
-    async def ban(self, ctx: Context, user: User):
-        await ctx.guild.ban(user)
+    async def unban(self, ctx: Context, user: User):
+        await ctx.guild.unban(user)
 
     @commands.check(author_is_admin)
     @commands.command(
