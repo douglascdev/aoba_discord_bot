@@ -25,13 +25,8 @@ Aoba Discord Bot
      :alt: Updates
 
 |
-.. raw:: html
-
-    <embed>
-        <p align="center">
-            <img src="aoba.gif" alt="Aoba"/>
-        </p>
-    </embed>
+.. image:: https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.gif
+    :align: center
 |
 
 

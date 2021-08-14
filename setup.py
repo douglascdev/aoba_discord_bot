@@ -6,6 +6,35 @@ from setuptools import setup, find_packages
 
 with open("README.rst") as readme_file:
     readme = readme_file.read()
+    """
+    GitHub does not align rst images correctly and PyPI does not accept raw html, so the html code stays in the git repo
+    and gets replaced with the rst equivalent here to show correctly in PyPI
+    """
+    gif_html_code = """.. raw:: html
+
+    <embed>
+        <p align="center">
+            <img src="aoba.gif" alt="Aoba"/>
+        </p>
+    </embed>"""
+    gif_rst_code = """
+    .. image:: https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.gif
+    :align: center
+    """
+    readme.replace(gif_html_code, gif_rst_code)
+
+    png_html_code = """.. raw:: html
+
+    <embed>
+        <p align="center">
+            <img src="aoba.png" alt="Aoba"/>
+        </p>
+    </embed>"""
+    png_rst_code = """
+    .. image:: https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.png
+    :align: center
+    """
+    readme.replace(gif_html_code, gif_rst_code)
 
 with open("HISTORY.rst") as history_file:
     history = history_file.read()
