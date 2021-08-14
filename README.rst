@@ -12,6 +12,9 @@ Aoba Discord Bot
 .. image:: https://img.shields.io/pypi/v/aoba_discord_bot.svg
         :target: https://pypi.python.org/pypi/aoba_discord_bot
 
+.. image:: https://img.shields.io/pypi/pyversions/aoba_discord_bot?color=
+        :target: https://pypi.org/project/aoba-discord-bot/
+
 .. image:: https://img.shields.io/travis/douglascdev/aoba_discord_bot.svg
         :target: https://travis-ci.com/douglascdev/aoba_discord_bot
 
@@ -23,10 +26,8 @@ Aoba Discord Bot
         :target: https://github.com/douglascdev/aoba_discord_bot/actions/workflows/codeql-analysis.yml
         :alt: CodeQL
 
-
-.. image:: https://pyup.io/repos/github/douglascdev/aoba_discord_bot/shield.svg
-     :target: https://pyup.io/repos/github/douglascdev/aoba_discord_bot/
-     :alt: Updates
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
 
 |
 .. raw:: html
