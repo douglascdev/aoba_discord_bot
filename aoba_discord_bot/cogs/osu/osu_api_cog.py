@@ -1,13 +1,11 @@
 import io
 import re
+from datetime import datetime, timedelta
 
 import discord
 import requests
 from discord import Message
-
 from discord.ext import commands
-from datetime import datetime, timedelta
-
 from discord.ext.commands import Context
 
 

@@ -4,13 +4,12 @@ import sys
 import click
 import discord
 from discord.ext.commands import Bot
-
 from sqlalchemy import create_engine
-from sqlalchemy.exc import NoResultFound, MultipleResultsFound
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.orm import Session
 
 from aoba_discord_bot import AobaDiscordBot
-from aoba_discord_bot.db_models import Base, AobaGuild
+from aoba_discord_bot.db_models import AobaGuild, Base
 
 
 @click.command()

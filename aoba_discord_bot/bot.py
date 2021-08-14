@@ -1,14 +1,14 @@
 """Main module."""
 import discord
-from discord.ext.commands import Bot, Context, Command
-from sqlalchemy.exc import NoResultFound, MultipleResultsFound
+from discord.ext.commands import Bot, Command, Context
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.orm import Session
 
 from aoba_discord_bot.cogs.admin import Admin
+from aoba_discord_bot.cogs.bot_admin import BotAdmin
 from aoba_discord_bot.cogs.osu import Osu
 from aoba_discord_bot.cogs.user import User
-from aoba_discord_bot.cogs.bot_admin import BotAdmin
-from aoba_discord_bot.db_models import AobaGuild, AobaCommand
+from aoba_discord_bot.db_models import AobaCommand, AobaGuild
 
 
 class AobaDiscordBot(Bot):

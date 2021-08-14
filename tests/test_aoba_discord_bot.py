@@ -3,11 +3,9 @@
 """Tests for `aoba_discord_bot` package."""
 
 import pytest
-
 from click.testing import CliRunner
 
-from aoba_discord_bot import bot
-from aoba_discord_bot import cli
+from aoba_discord_bot import bot, cli
 
 
 @pytest.fixture

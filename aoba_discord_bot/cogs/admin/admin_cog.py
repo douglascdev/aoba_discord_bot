@@ -1,11 +1,11 @@
 from discord import User
 from discord.ext import commands
-from discord.ext.commands import Context, Bot
-from sqlalchemy.exc import NoResultFound, MultipleResultsFound
+from discord.ext.commands import Bot, Context
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.orm import Session
 
 from aoba_discord_bot.aoba_checks import author_is_admin
-from aoba_discord_bot.db_models import AobaGuild, AobaCommand
+from aoba_discord_bot.db_models import AobaCommand, AobaGuild
 
 
 class Admin(commands.Cog, name="Admin"):
@@ -97,23 +97,17 @@ class Admin(commands.Cog, name="Admin"):
             print(e)
 
     @commands.check(author_is_admin)
-    @commands.command(
-        help="Kick a member from this server"
-    )
+    @commands.command(help="Kick a member from this server")
     async def kick(self, ctx: Context, user: User):
         await ctx.guild.kick(user)
 
     @commands.check(author_is_admin)
-    @commands.command(
-        help="Ban a member from this server"
-    )
+    @commands.command(help="Ban a member from this server")
     async def ban(self, ctx: Context, user: User):
         await ctx.guild.ban(user)
 
     @commands.check(author_is_admin)
-    @commands.command(
-        help="Unban a member from this server"
-    )
+    @commands.command(help="Unban a member from this server")
     async def ban(self, ctx: Context, user: User):
         await ctx.guild.ban(user)
 

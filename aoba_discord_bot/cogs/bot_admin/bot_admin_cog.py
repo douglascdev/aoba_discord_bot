@@ -1,9 +1,9 @@
 from typing import List
 
 import discord
-from discord import Member, Guild, TextChannel
+from discord import Guild, Member, TextChannel
 from discord.ext import commands
-from discord.ext.commands import Context, Bot
+from discord.ext.commands import Bot, Context
 from sqlalchemy.orm import Session
 
 
