@@ -1,4 +1,9 @@
+import io
+import re
+
+import discord
 import requests
+from discord import Message
 
 from discord.ext import commands
 from datetime import datetime, timedelta
@@ -52,7 +57,7 @@ class Osu(commands.Cog, name="Osu"):
         }
         return requests.post(url=Osu.API_OAUTH_URL, data=body).json()
 
-    @commands.command()
+    @commands.command(help="Performance points obtained by the user in this map")
     async def score_pp(self, ctx: Context, beatmap_id: int, user_id: int):
         url = f"{self.API_BASE_URL}beatmaps/{beatmap_id}/scores/users/{user_id}"
         body = {
@@ -66,4 +71,32 @@ class Osu(commands.Cog, name="Osu"):
         username = response.get("score").get("user").get("username")
         await ctx.send(
             content=f"** {username} ** has a **{round(pp)}pp** score on this map!"
+        )
+
+    @commands.command(
+        help="Generates a backup with download links to your beatmaps by reading an attachment with your osu!.db file"
+    )
+    async def beatmaps_backup(self, ctx: Context):
+        msg: Message = ctx.message
+        file = next(iter(msg.attachments))
+        contents_bin = io.BytesIO(await file.read()).getvalue()
+        beatmapset_ids = [
+            "".join([chr(c) for c in match[3:]])
+            for match in re.findall(b"\x00\x0b.\d+ ", contents_bin)
+        ]
+        ids_set = set(beatmapset_ids)
+        download_urls = "\n".join(
+            [
+                f"https://api.chimu.moe/v1/download/{bmp_set_id.strip()}?n=1"
+                for bmp_set_id in ids_set
+            ]
+        )
+        file = discord.File(io.StringIO(download_urls), filename="beatmap_dl_links.txt")
+        found = (
+            f"Found `{len(ids_set)}` beatmapsets for `{len(beatmapset_ids)}` beatmaps! Import the attached file"
+            f" with DownThemAll! to re-download your maps."
+        )
+        await ctx.send(
+            content=found,
+            file=file,
         )
