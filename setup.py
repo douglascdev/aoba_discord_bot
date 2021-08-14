@@ -59,6 +59,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     description="Aoba, the cutest Python Discord bot in all of GitHub.",
     entry_points={
