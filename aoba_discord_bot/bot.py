@@ -1,6 +1,6 @@
 """Main module."""
 import discord
-from discord.ext.commands import Bot, Context, check, Command
+from discord.ext.commands import Bot, Context, Command
 from sqlalchemy.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.orm import Session
 
