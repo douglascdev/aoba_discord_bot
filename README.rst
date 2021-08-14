@@ -1,9 +1,11 @@
 ================
 Aoba Discord Bot
 ================
-.. image:: ./aoba.png
-    :width: 150px
-    :align: center
+.. raw:: html
+
+    <embed>
+        <img style="display: block; margin-left: auto; margin-right: auto;" src="aoba.png" alt="Aoba"/>
+    </embed>
 
 .. image:: https://img.shields.io/pypi/v/aoba_discord_bot.svg
         :target: https://pypi.python.org/pypi/aoba_discord_bot
@@ -21,9 +23,11 @@ Aoba Discord Bot
      :alt: Updates
 
 |
-.. image:: ./aoba.gif
-    :width: 400px
-    :align: center
+.. raw:: html
+
+    <embed>
+        <img style="display: block; margin-left: auto; margin-right: auto; width: 400px" src="aoba.gif" alt="Aoba"/>
+    </embed>
 |
 
 
