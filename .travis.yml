@@ -25,3 +25,4 @@ deploy:
     tags: true
     repo: douglascdev/aoba_discord_bot
     python: 3.9
+
