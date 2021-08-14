@@ -19,6 +19,10 @@ Aoba Discord Bot
         :target: https://aoba-discord-bot.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
+.. image :: https://github.com/douglascdev/aoba_discord_bot/actions/workflows/codeql-analysis.yml/badge.svg?branch=main
+        :target: https://github.com/douglascdev/aoba_discord_bot/actions/workflows/codeql-analysis.yml
+        :alt: CodeQL
+
 
 .. image:: https://pyup.io/repos/github/douglascdev/aoba_discord_bot/shield.svg
      :target: https://pyup.io/repos/github/douglascdev/aoba_discord_bot/
