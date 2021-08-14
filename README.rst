@@ -52,16 +52,17 @@ It's still very early in development and could have bugs that would cause proble
 Features
 --------
 
-Here's the full list of commands:
+Here's the full list of Discord commands:
 
 .. code-block::
 
     Admin:
-     !ban             Unban a member from this server
+     !ban             Ban a member from this server
      !custom_cmd      Manage custom commands
      !kick            Kick a member from this server
      !prefix          Set the default command prefix
      !purge           Deletes 100 or a specified number of messages from this channel
+     !unban           Unban a member from this server
 
     BotAdmin:
      !announce        (UNTESTED)Make an announcement in every server
@@ -80,6 +81,32 @@ Here's the full list of commands:
 
     Type !help command for more info on a command.
     You can also type !help category for more info on a category.
+
+Usage
+--------
+To self host the bot you'll need to:
+
+- Install Python 3.6, 3.7, 3.8 or 3.9
+- Get an application token from Discord `here <https://discord.com/developers/applications>`__.
+- Install the bot with :code:`pip install aoba_discord_bot`
+- Run the bot passing your token: :code:`aoba_discord_bot --token <YOUR_TOKEN>`
+
+The full list of cli commands:
+
+.. code-block::
+
+    aoba_discord_bot --help
+    Usage: aoba_discord_bot [OPTIONS]
+
+      Console script for aoba_discord_bot.
+
+    Options:
+      --db TEXT                 Path for SQLite database file
+      --token TEXT              Discord API token
+      --osu_client_id TEXT      OAuth client Id for the osu! Cog
+      --osu_client_secret TEXT  OAuth client secret for the osu! Cog
+      --help                    Show this message and exit.
+
 
 Credits
 -------
