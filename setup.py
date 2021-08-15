@@ -78,6 +78,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/douglascdev/aoba_discord_bot",
-    version="0.1.11",
+    version="0.1.12",
     zip_safe=False,
 )
