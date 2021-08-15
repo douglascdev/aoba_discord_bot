@@ -2,7 +2,7 @@
 
 __author__ = """Douglas Carvalho"""
 __email__ = "douglasc.dev@gmail.com"
-__version__ = "0.1.12"
+__version__ = "0.1.13"
 
 from .aoba_checks import *
 from .bot import *
