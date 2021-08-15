@@ -19,7 +19,7 @@ Command-line interface
 Running an instance requires you to `create a bot account <https://discordpy.readthedocs.io/en/latest/discord.html?highlight=token#creating-a-bot-account>`__ to obtain a token.
 After following the :ref:`install`. you'll be able to use the command-line interface:
 
-.. code-block::
+.. code-block:: console
 
     $ aoba_discord_bot --help
     Usage: aoba_discord_bot [OPTIONS]
@@ -35,7 +35,7 @@ After following the :ref:`install`. you'll be able to use the command-line inter
 
 To run an instance, pass the token as an argument to the command-line interface:
 
-.. code-block::
+.. code-block:: console
 
     $ aoba_discord_bot --token <YOUR_TOKEN>
 

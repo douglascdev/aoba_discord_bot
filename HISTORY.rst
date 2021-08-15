@@ -8,11 +8,11 @@ History
 * First release on PyPI.
 
 0.1.10 (2021-08-14)
-------------------
+-------------------
 
 * Second release on PyPI.
 
 0.1.11 (2021-08-14)
-------------------
+-------------------
 
 * Third release on PyPI.

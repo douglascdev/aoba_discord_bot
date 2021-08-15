@@ -1,10 +1,11 @@
 .. highlight:: shell
 
 ============
-Installation
-============
 
 .. _install:
+
+Installation
+============
 
 Add to your server
 ------------------

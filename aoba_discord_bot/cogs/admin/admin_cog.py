@@ -9,6 +9,9 @@ from aoba_discord_bot.db_models import AobaCommand, AobaGuild
 
 
 class Admin(commands.Cog, name="Admin"):
+    """
+    Category of commands for administrative tasks like managing commands and banning users.
+    """
     def __init__(self, bot: Bot, db_session: Session):
         self.bot = bot
         self.db_session = db_session
@@ -25,6 +28,12 @@ class Admin(commands.Cog, name="Admin"):
         help="Add a custom command",
     )
     async def new_command(self, ctx: Context, name: str, text: str):
+        """
+        Creates a new command that displays text.
+        :param ctx: command context
+        :param name: name used to invoke the new command
+        :param text: text that will be displayed
+        """
         try:
             guild_db_record = (
                 self.db_session.query(AobaGuild)
