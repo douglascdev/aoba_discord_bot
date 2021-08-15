@@ -6,4 +6,3 @@ History
 -------------------
 
 * Release on PyPI.
-
