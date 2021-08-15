@@ -14,7 +14,7 @@ with open("README.rst") as readme_file:
 
     <embed>
         <p align="center">
-            <img src="aoba.gif" alt="Aoba"/>
+            <img src="https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.gif" alt="Aoba"/>
         </p>
     </embed>"""
     gif_rst_code = """
@@ -27,7 +27,7 @@ with open("README.rst") as readme_file:
 
     <embed>
         <p align="center">
-            <img src="aoba.png" alt="Aoba"/>
+            <img src="https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.png" alt="Aoba"/>
         </p>
     </embed>"""
     png_rst_code = """

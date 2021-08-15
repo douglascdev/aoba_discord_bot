@@ -1,6 +1,6 @@
 .. _osu-cog:
 
-aoba\_discord\_bot.cogs.osu package
+Osu
 ===================================
 
 Submodules

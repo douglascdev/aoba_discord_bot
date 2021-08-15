@@ -1,6 +1,6 @@
 .. _user-cog:
 
-aoba\_discord\_bot.cogs.user package
+User
 ====================================
 
 Submodules

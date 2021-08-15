@@ -1,6 +1,6 @@
 .. _bot-admin-cog:
 
-aoba\_discord\_bot.cogs.bot\_admin package
+Bot Admin
 ==========================================
 
 Submodules
