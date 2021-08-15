@@ -1,3 +1,5 @@
+.. _admin-cog:
+
 aoba\_discord\_bot.cogs.admin package
 =====================================
 

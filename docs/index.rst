@@ -1,5 +1,5 @@
 Welcome to Aoba Discord Bot's documentation!
-======================================
+============================================
 
 .. toctree::
    :maxdepth: 2
