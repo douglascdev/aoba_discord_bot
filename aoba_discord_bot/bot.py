@@ -98,6 +98,6 @@ class AobaDiscordBot(Bot):
                 iter(
                     filter(lambda g: g.guild_id == msg.guild.id, result.scalars().all())
                 ),
-                None
+                None,
             )
             return guild.command_prefix if guild else "!"

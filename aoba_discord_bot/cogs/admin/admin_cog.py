@@ -39,8 +39,10 @@ class Admin(commands.Cog, name="Admin"):
             q = select(AobaGuild)
             result = await session.execute(q)
             guild_db_record = next(
-                iter(filter(lambda g: g.guild_id == ctx.guild.id, result.scalars().all())),
-                None
+                iter(
+                    filter(lambda g: g.guild_id == ctx.guild.id, result.scalars().all())
+                ),
+                None,
             )
             if not guild_db_record:
                 await ctx.channel.send(
@@ -59,11 +61,17 @@ class Admin(commands.Cog, name="Admin"):
     async def del_command(self, ctx: Context, name: str):
         async with self.bot.Session() as session:
             cmd_records = (await session.execute(select(AobaCommand))).scalars().all()
-            cmd_record = next(iter(filter(lambda cmd: cmd.guild_id == ctx.guild.id and cmd.name == name, cmd_records)), None)
+            cmd_record = next(
+                iter(
+                    filter(
+                        lambda cmd: cmd.guild_id == ctx.guild.id and cmd.name == name,
+                        cmd_records,
+                    )
+                ),
+                None,
+            )
             if not cmd_record:
-                await ctx.channel.send(
-                    "Command not found!"
-                )
+                await ctx.channel.send("Command not found!")
                 return
             await session.delete(cmd_record)
             await session.commit()
@@ -77,8 +85,10 @@ class Admin(commands.Cog, name="Admin"):
             q = select(AobaGuild)
             result = await session.execute(q)
             guild_db_record = next(
-                iter(filter(lambda g: g.guild_id == ctx.guild.id, result.scalars().all())),
-                None
+                iter(
+                    filter(lambda g: g.guild_id == ctx.guild.id, result.scalars().all())
+                ),
+                None,
             )
             if not guild_db_record:
                 await ctx.channel.send(
