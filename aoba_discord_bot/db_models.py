@@ -20,5 +20,5 @@ class AobaCommand(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     text = Column(String)
-    guild_id = Column(Integer, ForeignKey("guild.guild_id"))
+    guild_id = Column(BigInteger, ForeignKey("guild.guild_id"))
     guild = relationship("AobaGuild", back_populates="commands")

@@ -81,12 +81,14 @@ class AobaDiscordBot(Bot):
         custom_cmds = (
             (await self.Session().execute(select(AobaCommand))).scalars().all()
         )
-        called_command = next(
+        called_command: AobaCommand = next(
             iter(filter(lambda cmd: cmd.name == ctx.command.name, custom_cmds)), None
         )
         if not called_command:
             await ctx.channel.send("Custom command not found!")
             return
+
+        await ctx.channel.send(called_command.text)
 
     async def get_guild_command_prefix(self, _: Bot, msg: discord.Message):
         async with self.Session() as session:
@@ -96,6 +98,6 @@ class AobaDiscordBot(Bot):
                 iter(
                     filter(lambda g: g.guild_id == msg.guild.id, result.scalars().all())
                 ),
-                None,
+                None
             )
             return guild.command_prefix if guild else "!"
