@@ -17,7 +17,7 @@ class AobaDiscordBot(Bot):
         self.command_prefix = self.get_guild_command_prefix
 
         for cog_name in ("admin", "bot_admin", "osu", "user"):
-            self.load_extension(f"cogs.{cog_name}.{cog_name + '_cog'}")
+            self.load_extension(f"aoba_discord_bot.cogs.{cog_name}.{cog_name + '_cog'}")
 
         @self.check
         async def globally_block_dms(ctx: Context):
