@@ -28,7 +28,7 @@ class AobaDiscordBot(Bot):
             # Heroku's environment variable DATABASE_URL is set in the format postgres://, without the asyncpg dialect,
             # so this replaces Heroku's URL to contain the dialect. For this reason, the format postgresql:// is always
             # kept even when running locally
-            url = db_url.replace("postgresql", "postgresql+asyncpg", 1)
+            url = db_url.replace("postgresql:", "postgresql+asyncpg:", 1)
 
             db_engine = create_async_engine(url)
 
