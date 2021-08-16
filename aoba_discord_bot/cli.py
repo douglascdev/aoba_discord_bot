@@ -9,9 +9,9 @@ from aoba_discord_bot import AobaDiscordBot
 @click.command()
 @click.option(
     "--database_url", "-db_url",
-    default="postgresql://postgres:postgres@localhost/aoba",
+    default="postgres://postgres:postgres@localhost/aoba",
     envvar="DATABASE_URL",
-    help="Database url in the format postgresql://user:pass@host/dbname",
+    help="Database url in the format postgres://user:pass@host/dbname",
 )
 @click.option("--token", prompt="Token", envvar="TOKEN", help="Discord API token")
 @click.option(

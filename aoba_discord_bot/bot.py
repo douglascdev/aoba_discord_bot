@@ -1,5 +1,6 @@
 """Main module."""
 import discord
+import re
 from discord.ext.commands import Bot, Command, Context
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.future import select
@@ -25,12 +26,12 @@ class AobaDiscordBot(Bot):
 
         @self.event
         async def on_ready():
-            # Heroku's environment variable DATABASE_URL is set in the format postgres://, without the asyncpg dialect,
-            # so this replaces Heroku's URL to contain the dialect. For this reason, the format postgresql:// is always
-            # kept even when running locally
-            url = db_url.replace("postgresql:", "postgresql+asyncpg:", 1)
+            # Since Heroku's environment variable DATABASE_URL is set in the format postgres:// instead of
+            # postgresql+asyncpg:// this replaces Heroku's URL to contain the dialect. For this reason, the
+            # format postgres:// is always replaced to postgresql+asyncpg:// even when running locally
+            self.db_url = re.sub(r"\w+:", "postgresql+asyncpg:", db_url, count=1)
 
-            db_engine = create_async_engine(url)
+            db_engine = create_async_engine(self.db_url)
 
             async with db_engine.begin() as conn:
                 await conn.run_sync(Base.metadata.create_all)
