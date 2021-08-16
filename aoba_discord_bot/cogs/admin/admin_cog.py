@@ -1,7 +1,6 @@
 from discord import User
 from discord.ext import commands
-from discord.ext.commands import Bot, Context
-from sqlalchemy.exc import MultipleResultsFound, NoResultFound
+from discord.ext.commands import Context
 from sqlalchemy.future import select
 
 from aoba_discord_bot import AobaDiscordBot
