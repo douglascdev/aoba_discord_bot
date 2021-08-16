@@ -2,8 +2,9 @@ from discord import User
 from discord.ext import commands
 from discord.ext.commands import Bot, Context
 from sqlalchemy.exc import MultipleResultsFound, NoResultFound
-from sqlalchemy.orm import Session
+from sqlalchemy.future import select
 
+from aoba_discord_bot import AobaDiscordBot
 from aoba_discord_bot.aoba_checks import author_is_admin
 from aoba_discord_bot.db_models import AobaCommand, AobaGuild
 
@@ -12,9 +13,9 @@ class Admin(commands.Cog, name="Admin"):
     """
     Category of commands for administrative tasks like managing commands and banning users.
     """
-    def __init__(self, bot: Bot, db_session: Session):
+
+    def __init__(self, bot: AobaDiscordBot):
         self.bot = bot
-        self.db_session = db_session
 
     @commands.check(author_is_admin)
     @commands.group(help="Manage custom commands", pass_context=True)
@@ -34,50 +35,38 @@ class Admin(commands.Cog, name="Admin"):
         :param name: name used to invoke the new command
         :param text: text that will be displayed
         """
-        try:
-            guild_db_record = (
-                self.db_session.query(AobaGuild)
-                .filter(AobaGuild.guild_id == ctx.guild.id)
-                .one()
+        async with self.bot.Session() as session:
+            q = select(AobaGuild)
+            result = await session.execute(q)
+            guild_db_record = next(
+                iter(filter(lambda g: g.id == ctx.guild.id, result.scalars().all())),
+                None,
             )
+            if not guild_db_record:
+                await ctx.channel.send(
+                    "Error trying to get guild id record, check the logs for more information"
+                )
+                return
             new_cmd = AobaCommand(name=name, text=text, guild=guild_db_record)
-            self.db_session.merge(new_cmd)
-            self.db_session.commit()
+            session.merge(new_cmd)
+            session.commit()
 
-            async def custom_command(ctx: Context):
-                try:
-                    custom_cmd = (
-                        self.db_session.query(AobaCommand)
-                        .filter(AobaCommand.name == ctx.command.name)
-                        .one()
-                    )
-                    await ctx.channel.send(custom_cmd.text)
-                except (NoResultFound, MultipleResultsFound) as e:
-                    await ctx.channel.send(
-                        "Error trying to get command record, check the logs for more information"
-                    )
-                    print(e)
-
-            self.bot.add_command(commands.Command(custom_command, name=name))
+            self.bot.add_command(commands.Command(ctx.bot.custom_command, name=name))
             await ctx.channel.send(f"Command `{name}` was successfully added!")
-        except (NoResultFound, MultipleResultsFound) as e:
-            await ctx.channel.send(
-                "Error trying to get guild id record, check the logs for more information"
-            )
-            print(e)
 
     @commands.check(author_is_admin)
     @custom_cmd.command(name="del", help="Delete a custom command")
     async def del_command(self, ctx: Context, name: str):
         try:
             cmd_record = (
-                self.db_session.query(AobaCommand)
+                self.bot.Session()
+                .query(AobaCommand)
                 .filter(AobaCommand.guild_id == ctx.guild.id)
                 .filter(AobaCommand.name == name)
                 .one()
             )
-            self.db_session.delete(cmd_record)
-            self.db_session.commit()
+            self.bot.Session().delete(cmd_record)
+            self.bot.Session().commit()
             self.bot.remove_command(name)
             await ctx.channel.send(f"Command `{name}` was successfully deleted!")
         except (NoResultFound, MultipleResultsFound) as e:
@@ -91,13 +80,14 @@ class Admin(commands.Cog, name="Admin"):
     async def prefix(self, ctx: Context, new_prefix: str):
         try:
             guild_db_record = (
-                self.db_session.query(AobaGuild)
+                self.bot.Session()
+                .query(AobaGuild)
                 .filter(AobaGuild.guild_id == ctx.guild.id)
                 .one()
             )
             guild_db_record.command_prefix = new_prefix
-            self.db_session.merge(guild_db_record)
-            self.db_session.commit()
+            self.bot.Session().merge(guild_db_record)
+            self.bot.Session().commit()
             await ctx.channel.send(f"Command prefix changed to `{new_prefix}`")
         except (NoResultFound, MultipleResultsFound) as e:
             await ctx.channel.send(
@@ -126,3 +116,7 @@ class Admin(commands.Cog, name="Admin"):
     )
     async def purge(self, ctx: Context, limit: int = 100):
         await ctx.channel.purge(limit=limit)
+
+
+def setup(bot: AobaDiscordBot):
+    bot.add_cog(Admin(bot))

@@ -1,1 +1,1 @@
-from .osu_api_cog import *
+from .osu_cog import *

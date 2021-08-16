@@ -3,17 +3,17 @@ from typing import List
 import discord
 from discord import Guild, Member, TextChannel
 from discord.ext import commands
-from discord.ext.commands import Bot, Context
-from sqlalchemy.orm import Session
+from discord.ext.commands import Context
+
+from aoba_discord_bot import AobaDiscordBot
 
 
 class BotAdmin(
     commands.Cog,
     name="BotAdmin",
 ):
-    def __init__(self, bot: Bot, db_session: Session):
+    def __init__(self, bot: AobaDiscordBot):
         self.bot = bot
-        self.db_session = db_session
 
     @commands.is_owner()
     @commands.command(help="Shutdown the bot")
@@ -80,3 +80,7 @@ class BotAdmin(
 
         for channel in announcement_channels:
             await channel.send(text)
+
+
+def setup(bot: AobaDiscordBot):
+    bot.add_cog(BotAdmin(bot))

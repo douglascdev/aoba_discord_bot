@@ -8,22 +8,23 @@ from discord import Message
 from discord.ext import commands
 from discord.ext.commands import Context
 
+from aoba_discord_bot import AobaDiscordBot
+
 
 class Osu(commands.Cog, name="Osu"):
     API_BASE_URL = "https://osu.ppy.sh/api/v2/"
     API_OAUTH_URL = "https://osu.ppy.sh/oauth/token"
 
-    def __init__(self, client_id: int, client_secret: str):
+    def __init__(self):
         """
         The osu! API requires the client id and a secret to request a token, both of which should be passed as arguments
         running the bot to use the osu! cog. Access your osu account settings at
         https://osu.ppy.sh/home/account/edit#oauth to get the id and secret.
         """
-        self.client_id, self.client_secret = client_id, client_secret
         self._access_token_info = None
         self._token_expires_dt = None
 
-    def _get_authorization_header(self) -> dict:
+    def _get_authorization_header(self, api_keys: dict) -> dict:
         """
         Handles the request for OAuth token and re-requesting it when expired.
         return: dictionary with the authorization header with a valid OAuth token
@@ -34,7 +35,7 @@ class Osu(commands.Cog, name="Osu"):
             return self._token_expires_dt is not None and now >= self._token_expires_dt
 
         if self._access_token_info is None or token_expired():
-            self._access_token_info = self._client_credentials_grant()
+            self._access_token_info = self._client_credentials_grant(api_keys)
             secs_to_expire = int(self._access_token_info.get("expires_in"))
             self._token_expires_dt = now + timedelta(seconds=secs_to_expire)
 
@@ -42,14 +43,14 @@ class Osu(commands.Cog, name="Osu"):
 
         return {"Authorization": f"Bearer {access_token}"}
 
-    def _client_credentials_grant(self) -> dict:
+    def _client_credentials_grant(self, api_keys: dict) -> dict:
         """
         Sends a post request for a new client credential token.
         return: Dictionary with token_type(str=Bearer), expires_in(int in seconds), access_token(str)
         """
         body = {
-            "client_id": self.client_id,
-            "client_secret": self.client_secret,
+            "client_id": api_keys["osu_client_id"],
+            "client_secret": api_keys["osu_client_secret"],
             "grant_type": "client_credentials",
             "scope": "public",
         }
@@ -63,7 +64,7 @@ class Osu(commands.Cog, name="Osu"):
             # "mods": "",
         }
         response = requests.get(
-            url=url, data=body, headers=self._get_authorization_header()
+            url=url, data=body, headers=self._get_authorization_header(ctx.bot.api_keys)
         ).json()
         pp = response.get("score").get("pp")
         username = response.get("score").get("user").get("username")
@@ -98,3 +99,7 @@ class Osu(commands.Cog, name="Osu"):
             content=found,
             file=file,
         )
+
+
+def setup(bot: AobaDiscordBot):
+    bot.add_cog(Osu())

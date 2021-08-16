@@ -3,3 +3,4 @@ discord.py>=1.7.3
 sqlalchemy>=1.4.22
 requests>=2.26.0
 beautifulsoup4>=4.9.3
+asyncpg>=0.24.0
