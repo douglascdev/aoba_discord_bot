@@ -8,7 +8,8 @@ from aoba_discord_bot import AobaDiscordBot
 
 @click.command()
 @click.option(
-    "--database_url", "-db_url",
+    "--database_url",
+    "-db_url",
     default="postgres://postgres:postgres@localhost/aoba",
     envvar="DATABASE_URL",
     help="Database url in the format postgres://user:pass@host/dbname",

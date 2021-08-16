@@ -1,6 +1,7 @@
 """Main module."""
-import discord
 import re
+
+import discord
 from discord.ext.commands import Bot, Command, Context
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.future import select
