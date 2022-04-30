@@ -28,7 +28,7 @@ To install Aoba Discord Bot, run this command in your terminal:
 This is the preferred method to install Aoba Discord Bot, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process. The installation requires Python 3.6, 3.7, 3.8 or 3.9.
+you through the process. The installation requires Python 3.8, 3.9 or 3.10.
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
