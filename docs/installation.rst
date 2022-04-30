@@ -61,3 +61,14 @@ Once you have a copy of the source, you can install it with:
 
 .. _Github repo: https://github.com/douglascdev/aoba_discord_bot
 .. _tarball: https://github.com/douglascdev/aoba_discord_bot/tarball/master
+
+
+Database setup
+~~~~~~~~~~~~~~
+
+
+To self-host the bot you need to make sure you have Postgresql running properly on you computer. Try to use your operating system's default package manager if it has one, or follow the `download <https://www.postgresql.org/download/>`_ page in the official Postgresql website.
+
+After installing and configuring Postgresql, you have to create a database called `aoba`, that is used by the bot. If necessary, check the `official instructions for creating a database <https://www.postgresql.org/docs/current/tutorial-createdb.html>`_.
+
+
