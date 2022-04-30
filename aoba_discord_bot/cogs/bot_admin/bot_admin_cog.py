@@ -58,19 +58,14 @@ class BotAdmin(
         guilds_with_no_announcement_channel: List[str] = list()
 
         for guild in self.bot.guilds:
-            guild: Guild
-            announcement_channel: TextChannel = None
-
-            for channel in guild.text_channels:
-                if channel.is_news():
-                    announcement_channel = channel
-                    break
+            announcement_channel: TextChannel = next(
+                filter(lambda c: c.is_news(), guild.text_channels), None
+            )
 
             if not announcement_channel:
                 guilds_with_no_announcement_channel.append(guild.name)
-                continue
-
-            announcement_channels.append(announcement_channel)
+            else:
+                announcement_channels.append(announcement_channel)
 
         if guilds_with_no_announcement_channel:
             channels = ", ".join(guilds_with_no_announcement_channel)
