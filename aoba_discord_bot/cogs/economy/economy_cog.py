@@ -35,7 +35,7 @@ class Economy(commands.Cog, name="Economy"):
         else:
             await ctx.send(f"No balance found for {discord_user.display_name}!")
 
-    @commands.check(author_is_admin)
+    @commands.is_owner()
     @commands.group(help="Deposit value to an user's balance", pass_context=True)
     async def deposit(self, ctx: Context, value: int, receiver: discord.User = None):
         if not receiver:
@@ -58,7 +58,7 @@ class Economy(commands.Cog, name="Economy"):
             await session.commit()
             await ctx.send(f"Deposited {value} for {receiver.display_name}. New balance: {user.bank_balance}")
 
-    @commands.check(author_is_admin)
+    @commands.is_owner()
     @commands.group(help="Withdraw a value from an user's account", pass_context=True)
     async def withdraw(self, ctx: Context, value: int, receiver: discord.User = None):
         if not receiver:
