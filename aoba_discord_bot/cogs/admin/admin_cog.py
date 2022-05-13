@@ -124,10 +124,16 @@ class Admin(commands.Cog, name="Admin"):
         await ctx.channel.purge(limit=limit)
 
     @commands.check(author_is_admin)
-    @commands.command(
+    @commands.group(help="Announcement commands", pass_context=True)
+    async def announcement(self, ctx: Context):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("Invalid announcement command passed.")
+
+    @commands.check(author_is_admin)
+    @announcement.command(
         help="Set the default announcement channel for the server"
     )
-    async def set_announcement_channel(self, ctx: Context, channel: discord.TextChannel):
+    async def set_channel(self, ctx: Context, channel: discord.TextChannel):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
             guild = (await session.execute(query)).scalars().first()
@@ -137,10 +143,10 @@ class Admin(commands.Cog, name="Admin"):
             await ctx.send(f"Announcement channel set to {channel.name}!")
 
     @commands.check(author_is_admin)
-    @commands.command(
+    @announcement.command(
         help="Get the default announcement channel for the server"
     )
-    async def get_announcement_channel(self, ctx: Context):
+    async def get_channel(self, ctx: Context):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
             guild = (await session.execute(query)).scalars().first()
@@ -148,7 +154,7 @@ class Admin(commands.Cog, name="Admin"):
             await ctx.send(f"The announcement channel is {channel_name}!")
 
     @commands.check(author_is_admin)
-    @commands.command(
+    @announcement.command(
         help="Make an announcement using the default announcement channel"
     )
     async def announce(self, ctx: Context, *messages: str):
