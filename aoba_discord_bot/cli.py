@@ -1,4 +1,5 @@
 """Console script for aoba_discord_bot."""
+import logging
 import sys
 
 import click
@@ -25,6 +26,8 @@ from aoba_discord_bot import AobaDiscordBot
 )
 def main(database_url, token, osu_client_id, osu_client_secret):
     """Console script for aoba_discord_bot."""
+    logging.basicConfig(level=logging.DEBUG)
+
     bot_invite_url = "https://discord.com/oauth2/authorize?client_id=525711332591271948&permissions=8&scope=bot"
 
     click.echo("Hey this is Aoba, thanks for running me :)")
