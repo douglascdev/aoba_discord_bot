@@ -144,8 +144,24 @@ class Admin(commands.Cog, name="Admin"):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
             guild = (await session.execute(query)).scalars().first()
-            channel_name = ctx.guild.get_channel(guild.announcement_channel_id)
+            channel_name = ctx.guild.get_channel(guild.announcement_channel_id).name
             await ctx.send(f"The announcement channel is {channel_name}!")
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Make an announcement using the default announcement channel"
+    )
+    async def announce(self, ctx: Context, *messages: str):
+        async with self.bot.Session() as session:
+            query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
+            guild = (await session.execute(query)).scalars().first()
+
+            if not guild.announcement_channel_id:
+                await ctx.send("No announcement channel set!")
+                return
+
+            channel = ctx.guild.get_channel(guild.announcement_channel_id)
+            await channel.send(" ".join(messages))
 
 
 def setup(bot: AobaDiscordBot):
