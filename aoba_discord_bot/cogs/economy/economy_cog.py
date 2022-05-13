@@ -3,10 +3,9 @@ import logging
 import discord
 from discord.ext import commands
 from discord.ext.commands import Context
-from sqlalchemy import select, update
+from sqlalchemy import select
 
 from aoba_discord_bot import AobaDiscordBot, AobaUser
-from aoba_discord_bot.aoba_checks import author_is_admin
 
 
 class Economy(commands.Cog, name="Economy"):
