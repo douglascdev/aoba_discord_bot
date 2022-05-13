@@ -4,8 +4,9 @@ import discord
 from discord import Guild, Member, TextChannel
 from discord.ext import commands
 from discord.ext.commands import Context
+from sqlalchemy import select
 
-from aoba_discord_bot import AobaDiscordBot
+from aoba_discord_bot import AobaDiscordBot, AobaGuild
 
 
 class BotAdmin(
@@ -48,33 +49,19 @@ class BotAdmin(
         await ctx.send(f"My status was changed to `{status}`!")
 
     @commands.is_owner()
-    @commands.command(help="(UNTESTED)Make an announcement in every server")
+    @commands.command(help="Make an announcement in every server with an announcement server set")
     async def announce(self, ctx: Context, *texts: str):
         text = " ".join(texts)
 
-        await ctx.send(f"Announcing `{text}` in {len(self.bot.guilds)} servers.")
+        async with self.bot.Session() as session:
+            query = select(AobaGuild).where(AobaGuild.announcement_channel_id != None)
+            aoba_guilds = (await session.execute(query)).scalars().all()
+            channels: List[TextChannel] = [ctx.guild.get_channel(guild.announcement_channel_id) for guild in aoba_guilds]
 
-        announcement_channels: List[TextChannel] = list()
-        guilds_with_no_announcement_channel: List[str] = list()
+            await ctx.send(f"Announcing `{text}` in {len(channels)} servers.")
 
-        for guild in self.bot.guilds:
-            announcement_channel: TextChannel = next(
-                filter(lambda c: c.is_news(), guild.text_channels), None
-            )
-
-            if not announcement_channel:
-                guilds_with_no_announcement_channel.append(guild.name)
-            else:
-                announcement_channels.append(announcement_channel)
-
-        if guilds_with_no_announcement_channel:
-            channels = ", ".join(guilds_with_no_announcement_channel)
-            await ctx.send(
-                f"Announcement channel was not found for guilds:\n > {channels}"
-            )
-
-        for channel in announcement_channels:
-            await channel.send(text)
+            for channel in channels:
+                await channel.send(text)
 
 
 def setup(bot: AobaDiscordBot):

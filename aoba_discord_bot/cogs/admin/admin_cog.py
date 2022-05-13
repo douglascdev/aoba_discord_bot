@@ -1,3 +1,4 @@
+import discord
 from discord import User
 from discord.ext import commands
 from discord.ext.commands import Context
@@ -121,6 +122,30 @@ class Admin(commands.Cog, name="Admin"):
     )
     async def purge(self, ctx: Context, limit: int = 100):
         await ctx.channel.purge(limit=limit)
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Set the default announcement channel for the server"
+    )
+    async def set_announcement_channel(self, ctx: Context, channel: discord.TextChannel):
+        async with self.bot.Session() as session:
+            query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
+            guild = (await session.execute(query)).scalars().first()
+            guild.announcement_channel_id = channel.id
+            await session.merge(guild)
+            await session.commit()
+            await ctx.send(f"Announcement channel set to {channel.name}!")
+
+    @commands.check(author_is_admin)
+    @commands.command(
+        help="Get the default announcement channel for the server"
+    )
+    async def get_announcement_channel(self, ctx: Context):
+        async with self.bot.Session() as session:
+            query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
+            guild = (await session.execute(query)).scalars().first()
+            channel_name = ctx.guild.get_channel(guild.announcement_channel_id)
+            await ctx.send(f"The announcement channel is {channel_name}!")
 
 
 def setup(bot: AobaDiscordBot):

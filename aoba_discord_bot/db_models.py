@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String, Numeric
+from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -9,6 +9,7 @@ class AobaGuild(Base):
     guild_id = Column(BigInteger, primary_key=True)
     command_prefix = Column(String)
     commands = relationship("AobaCommand", back_populates="guild")
+    announcement_channel_id = Column(BigInteger)
 
 
 class AobaCommand(Base):
