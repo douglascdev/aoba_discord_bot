@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
+from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String, Numeric
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -22,3 +22,13 @@ class AobaCommand(Base):
     text = Column(String)
     guild_id = Column(BigInteger, ForeignKey("guild.guild_id"))
     guild = relationship("AobaGuild", back_populates="commands")
+
+
+class AobaUser(Base):
+    """
+    User data associated with the bot, not a server
+    """
+
+    __tablename__ = "aobauser"
+    discord_id = Column(BigInteger, primary_key=True, autoincrement=False)
+    bank_balance = Column(Integer)
