@@ -1,1 +1,1 @@
-from .admin_cog import *
+from .economy_cog import *
