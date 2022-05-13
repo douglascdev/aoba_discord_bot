@@ -16,7 +16,7 @@ class Economy(commands.Cog, name="Economy"):
     def __init__(self, bot: AobaDiscordBot):
         self.bot = bot
 
-    @commands.group(help="Get the bank balance of an user", pass_context=True)
+    @commands.command(help="Get the bank balance of an user", pass_context=True)
     async def balance(self, ctx: Context, discord_user: discord.User = None):
         if not discord_user:
             discord_user = ctx.author
@@ -35,7 +35,7 @@ class Economy(commands.Cog, name="Economy"):
             await ctx.send(f"No balance found for {discord_user.display_name}!")
 
     @commands.is_owner()
-    @commands.group(help="Deposit value to an user's balance", pass_context=True)
+    @commands.command(help="Deposit value to an user's balance", pass_context=True)
     async def deposit(self, ctx: Context, value: int, receiver: discord.User = None):
         if not receiver:
             receiver = ctx.author
@@ -58,7 +58,7 @@ class Economy(commands.Cog, name="Economy"):
             await ctx.send(f"Deposited {value} for {receiver.display_name}. New balance: {user.bank_balance}")
 
     @commands.is_owner()
-    @commands.group(help="Withdraw a value from an user's account", pass_context=True)
+    @commands.command(help="Withdraw a value from an user's account", pass_context=True)
     async def withdraw(self, ctx: Context, value: int, receiver: discord.User = None):
         if not receiver:
             receiver = ctx.author
