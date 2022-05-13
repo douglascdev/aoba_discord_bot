@@ -11,7 +11,7 @@ from aoba_discord_bot.formatting import mention_author
 class AobaHelp(DefaultHelpCommand):
     def __init__(self, **options):
         super().__init__(**options)
-        self.width = 43
+        self.max_width = 80
 
     async def add_indented_commands(self, commands, *, heading, max_size=None):
         if not commands:
@@ -31,13 +31,13 @@ class AobaHelp(DefaultHelpCommand):
                 (self.indent - 1) * " " + prefix, name, command.short_doc, width=width
             )
             self.paginator.add_line(self.shorten_text(entry))
-        self.paginator.add_line(self.width * "_")
+        self.paginator.add_line(self.max_width * "_")
 
     def shorten_text(self, text):
-        if len(text) > self.width:
-            start, rest = text[: self.width], text[self.width :]
+        if len(text) > self.max_width:
+            start, rest = text[: self.max_width], text[self.max_width:]
             max_cmd_name_size = self.get_max_size(self.context.bot.commands)
-            step = self.width - max_cmd_name_size - 3
+            step = self.max_width - max_cmd_name_size - 3
             split_rest = [rest[i : i + step] for i in range(0, len(rest), step)]
 
             margin_left = " " * (max_cmd_name_size + 3)
