@@ -18,7 +18,7 @@ class AobaDiscordBot(Bot):
         self.api_keys = api_keys
         self.command_prefix = self.get_guild_command_prefix
 
-        for cog_name in ("admin", "bot_admin", "osu", "user"):
+        for cog_name in ("admin", "bot_admin", "economy", "osu", "user"):
             self.load_extension(f"aoba_discord_bot.cogs.{cog_name}.{cog_name + '_cog'}")
 
         @self.check
