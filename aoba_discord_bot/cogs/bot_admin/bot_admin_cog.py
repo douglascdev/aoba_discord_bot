@@ -50,7 +50,7 @@ class BotAdmin(
 
     @commands.is_owner()
     @commands.command(help="Make an announcement in every server with an announcement server set")
-    async def announce(self, ctx: Context, *texts: str):
+    async def aoba_announce(self, ctx: Context, *texts: str):
         text = " ".join(texts)
 
         async with self.bot.Session() as session:
