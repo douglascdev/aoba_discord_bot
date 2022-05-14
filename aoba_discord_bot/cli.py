@@ -30,8 +30,8 @@ def main(database_url, token, osu_client_id, osu_client_secret):
 
     bot_invite_url = "https://discord.com/oauth2/authorize?client_id=525711332591271948&permissions=8&scope=bot"
 
-    click.echo("Hey this is Aoba, thanks for running me :)")
-    click.echo(f"Please allow me to join your server: {bot_invite_url}")
+    logging.info("Hey this is Aoba, thanks for running me :)")
+    logging.info(f"Please allow me to join your server: {bot_invite_url}")
 
     api_tokens = {
         "discord": token,
@@ -39,7 +39,7 @@ def main(database_url, token, osu_client_id, osu_client_secret):
         "osu_client_secret": osu_client_secret,
     }
 
-    click.echo("Running discord.py now")
+    logging.info("Running discord.py now")
 
     aoba = AobaDiscordBot(api_tokens, database_url, command_prefix="!")
     aoba.run(token)

@@ -1,4 +1,5 @@
 """Main module."""
+import logging
 import re
 
 import discord
@@ -51,11 +52,11 @@ class AobaDiscordBot(Bot):
                     new_guilds = bot_guild_ids.difference(persisted_guild_ids)
                     for new_guild_id in new_guilds:
                         new_guild = AobaGuild(guild_id=new_guild_id, command_prefix="!")
-                        print(f" - Added database record for guild `{new_guild_id}`")
+                        logging.info(f" - Added database record for guild `{new_guild_id}`")
                         session.add(new_guild)
                     if len(new_guilds) > 0:
                         await session.commit()
-                        print(
+                        logging.info(
                             f"{len(new_guilds)} guilds added the bot since the last run"
                         )
 
@@ -70,7 +71,7 @@ class AobaDiscordBot(Bot):
                             Command(self.custom_command, name=command.name)
                         )
 
-            print(f"Logged on as {self.user}")
+            logging.info(f"Logged on as {self.user}")
             await insert_new_guilds_in_db()
             await add_persisted_custom_commands()
             await self.change_presence(
