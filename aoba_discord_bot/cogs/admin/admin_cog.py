@@ -157,7 +157,7 @@ class Admin(commands.Cog, name="Admin"):
     @announcement.command(
         help="Make an announcement using the default announcement channel"
     )
-    async def announce(self, ctx: Context, *messages: str):
+    async def new(self, ctx: Context, *messages: str):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
             guild = (await session.execute(query)).scalars().first()
