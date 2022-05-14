@@ -1,5 +1,6 @@
 """Main module."""
 import logging
+import pathlib
 import re
 
 import discord
@@ -19,8 +20,7 @@ class AobaDiscordBot(Bot):
         self.api_keys = api_keys
         self.command_prefix = self.get_guild_command_prefix
 
-        for cog_name in ("admin", "bot_admin", "economy", "osu", "user"):
-            self.load_extension(f"aoba_discord_bot.cogs.{cog_name}.{cog_name + '_cog'}")
+        self._load_cogs()
 
         @self.check
         async def globally_block_dms(ctx: Context):
@@ -80,6 +80,15 @@ class AobaDiscordBot(Bot):
             await self.change_presence(
                 status=discord.Status.online, activity=discord.Game("on the cloud")
             )
+
+    async def _load_cogs(self) -> None:
+        for cog_folder in (pathlib.Path(__file__).parent / "cogs").iterdir():
+            # Exclude __pychache__ and __init__
+            if "__" in str(cog_folder):
+                continue
+
+            cog_name = cog_folder.stem
+            self.load_extension(f"aoba_discord_bot.cogs.{cog_name}.{cog_name + '_cog'}")
 
     async def custom_command(self, ctx: Context):
         custom_cmds = (
