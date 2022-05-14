@@ -28,6 +28,9 @@ class AobaDiscordBot(Bot):
 
         @self.event
         async def on_ready():
+            bot_invite_url = f"https://discord.com/oauth2/authorize?client_id={self.user.id}&permissions=8&scope=bot"
+            logging.info(f"Please allow me to join your server: {bot_invite_url}")
+
             # Since Heroku's environment variable DATABASE_URL is set in the format postgres:// instead of
             # postgresql+asyncpg:// this replaces Heroku's URL to contain the dialect. For this reason, the
             # format postgres:// is always replaced to postgresql+asyncpg:// even when running locally

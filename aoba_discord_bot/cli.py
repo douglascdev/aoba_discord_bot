@@ -28,10 +28,7 @@ def main(database_url, token, osu_client_id, osu_client_secret):
     """Console script for aoba_discord_bot."""
     logging.basicConfig(level=logging.DEBUG)
 
-    bot_invite_url = "https://discord.com/oauth2/authorize?client_id=525711332591271948&permissions=8&scope=bot"
-
     logging.info("Hey this is Aoba, thanks for running me :)")
-    logging.info(f"Please allow me to join your server: {bot_invite_url}")
 
     api_tokens = {
         "discord": token,
