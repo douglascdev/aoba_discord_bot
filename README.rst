@@ -48,8 +48,9 @@ Features
 
 Aoba has the following modules/commands:
 
-- **Admin**: *ban, unban, custom_cmd, kick, prefix, purge*
-- **BotAdmin**: *announce, servers, shutdown, status*
+- **Admin**: *announcement, ban, unban, custom_cmd, kick, prefix, purge*
+- **BotAdmin**: *aoba_announce, guilds, shutdown, status*
+- **Economy**: *balance, deposit, withdraw*
 - **Osu**: *beatmaps_backup, score_pp*
 - **User**: *escape_markdown, help*
 
