@@ -74,7 +74,7 @@ class AobaDiscordBot(Bot):
             await insert_new_guilds_in_db()
             await add_persisted_custom_commands()
             await self.change_presence(
-                status=discord.Status.online, activity=discord.Game("in the cloud")
+                status=discord.Status.online, activity=discord.Game("on the cloud")
             )
 
     async def custom_command(self, ctx: Context):
