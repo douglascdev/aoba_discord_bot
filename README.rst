@@ -5,7 +5,7 @@ Aoba Discord Bot
 
     <embed>
         <p align="center">
-            <img src="https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.png" alt="Aoba"/>
+            <img src="https://user-images.githubusercontent.com/38195951/168450446-6a9f2558-b463-4250-990e-04dae67e5958.png" alt="Aoba"/>
         </p>
     </embed>
 
@@ -28,18 +28,6 @@ Aoba Discord Bot
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-
-|
-
-.. raw:: html
-
-    <embed>
-        <p align="center">
-            <img src="https://github.com/douglascdev/aoba_discord_bot/raw/main/aoba.gif" alt="Aoba"/>
-        </p>
-    </embed>
-
-|
 
 
 Aoba is an open-source Discord bot made with Python, providing admin, osu! and anime functionalities.
