@@ -35,17 +35,13 @@ class BotAdmin(
     @commands.command(help="Change Aoba's status text")
     async def status(self, ctx: Context, *texts: str):
         if not texts:
-            member: Member = None
-            for guild in self.bot.guilds:
-                member = guild.get_member(self.bot.user.id)
-                if member:
-                    break
-            if member:
-                await ctx.send(member.activity)
+            msg = "Status is empty" if not self.bot.activity else self.bot.activity
+            await ctx.send(msg)
             return
 
         status = " ".join(texts)
-        await self.bot.change_presence(activity=discord.Game(status))
+        self.bot.activity = discord.Game(status)
+        await self.bot.change_presence(activity=self.bot.activity)
         await ctx.send(f"My status was changed to `{status}`!")
 
     @commands.is_owner()

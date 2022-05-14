@@ -22,13 +22,25 @@ class AobaDiscordBot(Bot):
         self.api_keys = api_keys
         self.command_prefix = self.get_guild_command_prefix
 
-        self._initialize_database()
-        self._load_all_cogs()
+        self._on_bot_run.start()
+
+    @tasks.loop(count=1)
+    async def _on_bot_run(self):
+        """
+        Tasks to run the first time the bot loads and is ready.
+
+        Not the same as on_ready, because that's called every
+        time the bot connects.
+        """
+        await self.wait_until_ready()
+
+        await self._initialize_database()
+        await self._insert_new_guilds_in_db()
+        await self._add_persisted_custom_commands()
+        await self._load_all_cogs()
+        await self._log_invite_url()
 
     async def _initialize_database(self):
-        bot_invite_url = f"https://discord.com/oauth2/authorize?client_id={self.user.id}&permissions=8&scope=bot"
-        logging.info(f"Please allow me to join your server: {bot_invite_url}")
-
         # Since Heroku's environment variable DATABASE_URL is set in the format postgres:// instead of
         # postgresql+asyncpg:// this replaces Heroku's URL to contain the dialect. For this reason, the
         # format postgres:// is always replaced to postgresql+asyncpg:// even when running locally
@@ -54,17 +66,6 @@ class AobaDiscordBot(Bot):
             cog_name = cog_folder.stem
             self.load_extension(f"aoba_discord_bot.cogs.{cog_name}.{cog_name + '_cog'}")
             logging.debug(f"Loaded cog {cog_name}")
-
-    @tasks.loop(count=1)
-    async def _on_bot_run(self):
-        """
-        Tasks to run the first time the bot loads and is ready.
-
-        Not the same as on_ready, because that's called every
-        time the bot connects.
-        """
-        await self._insert_new_guilds_in_db()
-        await self._add_persisted_custom_commands()
 
     async def _insert_new_guilds_in_db(self):
         async with self.Session() as session:
@@ -92,6 +93,10 @@ class AobaDiscordBot(Bot):
 
             for command in custom_cmds:
                 self.add_command(Command(self.custom_command, name=command.name))
+
+    async def _log_invite_url(self):
+        bot_invite_url = f"https://discord.com/oauth2/authorize?client_id={self.user.id}&permissions=8&scope=bot"
+        logging.info(f"Bot invite url: {bot_invite_url}")
 
     async def custom_command(self, ctx: Context):
         custom_cmds = (
