@@ -2,7 +2,6 @@
 Aoba Discord Bot
 ================
 |
-|
 
 .. raw:: html
 
@@ -12,7 +11,6 @@ Aoba Discord Bot
         </p>
     </embed>
 
-|
 |
 
 .. image:: https://img.shields.io/pypi/v/aoba_discord_bot.svg
