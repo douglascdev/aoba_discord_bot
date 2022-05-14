@@ -130,9 +130,7 @@ class Admin(commands.Cog, name="Admin"):
             await ctx.send("Invalid announcement command passed.")
 
     @commands.check(author_is_admin)
-    @announcement.command(
-        help="Set the default announcement channel for the server"
-    )
+    @announcement.command(help="Set the default announcement channel for the server")
     async def set_channel(self, ctx: Context, channel: discord.TextChannel):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)
@@ -143,9 +141,7 @@ class Admin(commands.Cog, name="Admin"):
             await ctx.send(f"Announcement channel set to {channel.name}!")
 
     @commands.check(author_is_admin)
-    @announcement.command(
-        help="Get the default announcement channel for the server"
-    )
+    @announcement.command(help="Get the default announcement channel for the server")
     async def get_channel(self, ctx: Context):
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.guild_id == ctx.guild.id)

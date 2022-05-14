@@ -49,14 +49,19 @@ class BotAdmin(
         await ctx.send(f"My status was changed to `{status}`!")
 
     @commands.is_owner()
-    @commands.command(help="Make an announcement in every server with an announcement server set")
+    @commands.command(
+        help="Make an announcement in every server with an announcement server set"
+    )
     async def aoba_announce(self, ctx: Context, *texts: str):
         text = " ".join(texts)
 
         async with self.bot.Session() as session:
             query = select(AobaGuild).where(AobaGuild.announcement_channel_id != None)
             aoba_guilds = (await session.execute(query)).scalars().all()
-            channels: List[TextChannel] = [ctx.guild.get_channel(guild.announcement_channel_id) for guild in aoba_guilds]
+            channels: List[TextChannel] = [
+                ctx.guild.get_channel(guild.announcement_channel_id)
+                for guild in aoba_guilds
+            ]
 
             await ctx.send(f"Announcing `{text}` in {len(channels)} servers.")
 

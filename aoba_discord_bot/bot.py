@@ -16,6 +16,7 @@ from aoba_discord_bot.db_models import AobaCommand, AobaGuild, Base
 class AobaDiscordBot(Bot):
     def __init__(self, api_keys: dict, db_url: str, **options):
         super().__init__(**options, activity=discord.Game("on the cloud"))
+
         self.Session: scoped_session = None
         self.db_url = db_url
         self.api_keys = api_keys
@@ -73,10 +74,12 @@ class AobaDiscordBot(Bot):
             )
             persisted_guild_ids = {guild.guild_id for guild in persisted_guilds}
             new_guilds = bot_guild_ids.difference(persisted_guild_ids)
+
             for new_guild_id in new_guilds:
                 new_guild = AobaGuild(guild_id=new_guild_id, command_prefix="!")
                 logging.info(f" - Added database record for guild `{new_guild_id}`")
                 session.add(new_guild)
+
             if len(new_guilds) > 0:
                 await session.commit()
                 logging.info(
@@ -85,22 +88,20 @@ class AobaDiscordBot(Bot):
 
     async def _add_persisted_custom_commands(self):
         async with self.Session() as session:
-            custom_cmds = (
-                (await session.execute(select(AobaCommand))).scalars().all()
-            )
+            custom_cmds = (await session.execute(select(AobaCommand))).scalars().all()
 
             for command in custom_cmds:
-                self.add_command(
-                    Command(self.custom_command, name=command.name)
-                )
+                self.add_command(Command(self.custom_command, name=command.name))
 
     async def custom_command(self, ctx: Context):
         custom_cmds = (
             (await self.Session().execute(select(AobaCommand))).scalars().all()
         )
+
         called_command: AobaCommand = next(
             iter(filter(lambda cmd: cmd.name == ctx.command.name, custom_cmds)), None
         )
+
         if not called_command:
             await ctx.channel.send("Custom command not found!")
             return

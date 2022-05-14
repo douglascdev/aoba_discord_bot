@@ -35,7 +35,7 @@ class AobaHelp(DefaultHelpCommand):
 
     def shorten_text(self, text):
         if len(text) > self.max_width:
-            start, rest = text[: self.max_width], text[self.max_width:]
+            start, rest = text[: self.max_width], text[self.max_width :]
             max_cmd_name_size = self.get_max_size(self.context.bot.commands)
             step = self.max_width - max_cmd_name_size - 3
             split_rest = [rest[i : i + step] for i in range(0, len(rest), step)]
