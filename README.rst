@@ -1,6 +1,9 @@
 ================
 Aoba Discord Bot
 ================
+|
+|
+
 .. raw:: html
 
     <embed>
@@ -8,6 +11,9 @@ Aoba Discord Bot
             <img src="https://user-images.githubusercontent.com/38195951/168450446-6a9f2558-b463-4250-990e-04dae67e5958.png" alt="Aoba"/>
         </p>
     </embed>
+
+|
+|
 
 .. image:: https://img.shields.io/pypi/v/aoba_discord_bot.svg
         :target: https://pypi.python.org/pypi/aoba_discord_bot
